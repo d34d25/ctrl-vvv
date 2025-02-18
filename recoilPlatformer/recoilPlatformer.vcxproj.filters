@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\player">
+      <UniqueIdentifier>{c5922e32-d9e4-4298-a2e6-47d3c5b6ad9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\levels">
+      <UniqueIdentifier>{44a1dbd2-f2af-4d17-8b5d-04273a5b61d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\screens">
+      <UniqueIdentifier>{282a743d-ae63-408f-b8be-fcc4709f4730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\player">
+      <UniqueIdentifier>{ac42aaa0-06a3-4d6c-a2ab-c6d36a951e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\screens">
+      <UniqueIdentifier>{28147860-29ef-412b-916c-918ddab21253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\levels">
+      <UniqueIdentifier>{037a0fe1-8982-4096-9582-d8504d32709d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="player.c">
+      <Filter>Source Files\player</Filter>
+    </ClCompile>
+    <ClCompile Include="testLevelScreen.c">
+      <Filter>Source Files\screens</Filter>
+    </ClCompile>
+    <ClCompile Include="titleScreen.c">
+      <Filter>Source Files\screens</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="player.h">
+      <Filter>Header Files\player</Filter>
+    </ClInclude>
+    <ClInclude Include="titleScreen.h">
+      <Filter>Header Files\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="testLevelScreen.h">
+      <Filter>Header Files\screens</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
