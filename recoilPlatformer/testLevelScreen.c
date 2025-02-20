@@ -13,8 +13,10 @@ float gridSizeX; //122% more
 Rectangle checkArea;
 
 struct Platform horizontalPlatforms[20];
-int platformIndex;
+int platformIndexHorizontal;
 
+struct Platform verticalPlatforms[20];
+int platformIndexVertical;
 
 int level;
 char fileName[50];
@@ -38,7 +40,7 @@ void loadLevelData(const char* levelPath) //assets/level.png
 
     printf("level%d", level);
 
-    platformIndex = 0;
+    platformIndexHorizontal = 0;
 
     for (int i = 0; i < ROWS; i++) 
     {
@@ -76,36 +78,53 @@ void loadLevelData(const char* levelPath) //assets/level.png
             }
             else if (pixel.r == 0 && pixel.g == 0 && pixel.b == 255)
             {
-                testLevel[i][j] = 3; //moving platform starting right
+                testLevel[i][j] = 3; //moving platform horizontal
 
-                Vector2 startPos;
+                horizontalPlatforms[platformIndexHorizontal] = initPlatform(
+                    gridSizeX * 5,
+                    gridSizeY,
+                    (Vector2) {
+                    i* gridSizeX, j* gridSizeY },  // Directly initializing startPos
+                    (Vector2) {
+                    (GetRandomValue(0, 1) == 0) ? -100.0f : 100.0f, 0.0f}  // Directly initializing startVel
+                );
 
-                startPos.x = i * gridSizeX;
-                startPos.y = j * gridSizeY;
 
-                Vector2 startVel;
-                startVel.x = 100;
-                startVel.y = 0;
 
-                horizontalPlatforms[platformIndex] = initPlatform(gridSizeX * 5, gridSizeY, startPos, startVel);
-                if (platformIndex < 19)
+                if (platformIndexHorizontal < 19)
                 {
-                    platformIndex++;
+                    platformIndexHorizontal++;
                 }
 
 
             }
             else if (pixel.r == 0 && pixel.g == 255 && pixel.b == 255)
             {
-                testLevel[i][j] = 3.5; //moving platform starting left
+                testLevel[i][j] = 3.5; //moving platform vertical
+
+                verticalPlatforms[platformIndexVertical] = initPlatform(
+                    gridSizeX * 8,
+                    gridSizeY,
+                    (Vector2) {
+                    i* gridSizeX, j* gridSizeY},  // Directly initializing startPos
+                    (Vector2) {
+                    0.0f, (GetRandomValue(0, 1) == 0) ? -100.0f : 100.0f}  // Directly initializing startVel
+                );
+
+
+                if (platformIndexVertical < 19)
+                {
+                    platformIndexVertical++;
+                }
+
             }
             else if (pixel.r == 255 && pixel.g == 0 && pixel.b == 255)
             {
-                testLevel[i][j] = 4; //moving platform starting up
+                testLevel[i][j] = 4; 
             }
             else if (pixel.r == 100 && pixel.g == 0 && pixel.b == 255)
             {
-                testLevel[i][j] = 4.5; //moving platform starting down
+                testLevel[i][j] = 4.5;
             }
             else 
             {
@@ -158,7 +177,7 @@ void testGameplayScreenInit()
     ROWS = 70;
     COLS = 70;
 
-    gameplay_fixedDeltaTime = 1.0f / 60.0f;
+    gameplay_fixedDeltaTime = 1.0f / 120.0f;
 
     // Get screen dimensions
     float screenWidth = 192 * 4;
@@ -193,9 +212,10 @@ void testGameplayScreenUpdate()
             {
                 Rectangle mapRect = { i * gridSizeX, j * gridSizeY, gridSizeX, gridSizeY };
 
-                for (int i = 0; i < platformIndex; i++)
+                for (int i = 0; i < platformIndexHorizontal; i++)
                 {
                     resolveCollisionsPlatformTiles(&horizontalPlatforms[i], &mapRect, gameplay_fixedDeltaTime);
+                    resolveCollisionsPlatformTiles(&verticalPlatforms[i], &mapRect, gameplay_fixedDeltaTime);
                 }
                
             }
@@ -284,20 +304,30 @@ void testGameplayScreenUpdate()
 
         }
 
-        for (int i = 0; i < platformIndex; i++) 
+        for (int i = 0; i < platformIndexHorizontal; i++) 
         {
             resolveCollisionsPlatformsX(&player, &horizontalPlatforms[i], gameplay_fixedDeltaTime);
             
         }
 
+        for (int i = 0; i < platformIndexVertical; i++)
+        {
+            resolveCollisionsPlatformsY(&player, &verticalPlatforms[i], gameplay_fixedDeltaTime);
+        }
+
 
         updatePlayer(&player, gameplay_fixedDeltaTime);
 
-        for (int i = 0; i < platformIndex; i++)
+        for (int i = 0; i < platformIndexHorizontal; i++)
         {
             updatePlatform(&horizontalPlatforms[i], gameplay_fixedDeltaTime);
+            
         }
         
+        for (int i = 0; i < platformIndexVertical; i++)
+        {
+            updatePlatform(&verticalPlatforms[i], gameplay_fixedDeltaTime);
+        }
        
         //printf("Platform index: %d\n", platformIndex);
 
@@ -326,11 +356,16 @@ void testGameplayScreenDraw()
    checkAreaColor.g = 200;
    checkAreaColor.b = 200;
 
-   for (int i = 0; i < platformIndex; i++)
+   for (int i = 0; i < platformIndexHorizontal; i++)
    {
-       drawPlatform(&horizontalPlatforms[i], currentColor);;
+       drawPlatform(&horizontalPlatforms[i], currentColor);
+      
    }
    
+   for (int i = 0; i < platformIndexVertical; i++)
+   {
+       drawPlatform(&verticalPlatforms[i], currentColor);
+   }
 
    drawLevel(currentColor);
    //DrawRectangle(checkArea.x, checkArea.y, checkArea.width, checkArea.height, checkAreaColor);

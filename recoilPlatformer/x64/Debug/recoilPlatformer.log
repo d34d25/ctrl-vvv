@@ -1,3 +1,5 @@
-﻿  recoilPlatformer.vcxproj -> E:\Programming projects\C\recoilplatformer\x64\Debug\recoilPlatformer.exe
+﻿  main.c
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\main.c(11,29): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+  recoilPlatformer.vcxproj -> E:\Programming projects\C\recoilplatformer\x64\Debug\recoilPlatformer.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

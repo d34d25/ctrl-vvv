@@ -73,6 +73,7 @@ void move(struct Player* player)
 	{
 		applyDeacceleration(player);
 		player->acceleration.x = 0.0f;
+		player->acceleration.y = 0.0f;
 	}
 
 
@@ -123,6 +124,7 @@ bool checkVerticalCollisions(struct Player* player, Rectangle* obstacle, float d
 		player->position.y + player->velocity.y * dt < obstacle->y + obstacle->height);
 }
 
+
 void resolveCollisions(struct Player* player, Rectangle* obstacle, float dt)
 {
 	float offset = 0.5f;
@@ -136,7 +138,7 @@ void resolveCollisions(struct Player* player, Rectangle* obstacle, float dt)
 		{
 			player->position.x = obstacle->x - player->width - offset;
 		}
-		else if (player->position.x > obstacle->x)
+		else if (player->position.x > obstacle->x) //moving left
 		{
 			player->position.x = obstacle->x + obstacle->width + offset;
 		}
@@ -168,7 +170,8 @@ void resolveCollisions(struct Player* player, Rectangle* obstacle, float dt)
 void resolveCollisionsPlatformsX(struct Player* player, struct Platform* p, float dt)
 {
 
-	float offset = 0.0f;
+	float offset = 0.75f;
+	float checkOffset = 2.0f;
 
 	Rectangle obstacle;
 
@@ -186,7 +189,7 @@ void resolveCollisionsPlatformsX(struct Player* player, struct Platform* p, floa
 		{
 			player->position.x = obstacle.x - player->width - offset;
 		}
-		else if (player->position.x > obstacle.x)
+		else if (player->position.x > obstacle.x) //moving left
 		{
 			player->position.x = obstacle.x + obstacle.width + offset;
 		}
@@ -200,18 +203,62 @@ void resolveCollisionsPlatformsX(struct Player* player, struct Platform* p, floa
 		player->velocity.y = 0.0f;
 		player->acceleration.x = p->velocity.x;
         
-		if (player->position.y < obstacle.y)  //moving down
+		if (player->position.y <= obstacle.y + checkOffset)  //moving down
 		{
 			player->position.y = obstacle.y - player->height - offset;
 		}
-		else if (player->position.y > obstacle.y + obstacle.height) //moving up
+		else if (player->position.y >= obstacle.y + obstacle.height - checkOffset) //moving up
 		{
 			player->position.y = obstacle.y + obstacle.height + offset;
 		}
 	}
-	else
+
+}
+
+void resolveCollisionsPlatformsY(struct Player* player, struct Platform* p, float dt)
+{
+
+	float offsetV = 0.75f;
+
+	float checkOffset = 2.0f;
+
+	Rectangle obstacle;
+
+	obstacle.x = p->position.x;
+	obstacle.y = p->position.y;
+
+	obstacle.width = p->width;
+	obstacle.height = p->height;
+
+	if (checkVerticalCollisions(player, &obstacle, dt))
 	{
-		//player->acceleration.x = 0.0f;
+		player->inAir = false;
+		
+		player->velocity.y = 0.0f;
+
+		if (player->position.y + player->height <= obstacle.y + checkOffset)  //moving down
+		{
+			player->position.y = obstacle.y - player->height - offsetV;
+
+			if (!player->gravityInversed)
+			{
+				player->acceleration.y = p->velocity.y;
+			}
+		}
+		else if (player->position.y >= obstacle.y + obstacle.height - checkOffset)  //moving up
+		{
+			player->position.y = obstacle.y + obstacle.height + offsetV;
+
+			if (player->gravityInversed)
+			{
+				player->acceleration.y = p->velocity.y;
+			}
+		}
+
+	}
+	else if (player->velocity.y != 0)
+	{
+		player->inAir = true;
 	}
 
 }

@@ -43,5 +43,6 @@ void move(struct Player* player);
 void applyDeacceleration(struct Player* player);
 
 void resolveCollisionsPlatformsX(struct Player* player, struct Platform* p, float dt);
+void resolveCollisionsPlatformsY(struct Player* player, struct Platform* p, float dt);
 
 #endif 

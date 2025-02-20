@@ -1,0 +1,7 @@
+negro = bloque solido (r = 0, g = 0 b = 0)
+rojo "pincho"  (r = 255, g = 0 b = 0)
+verde = siguiente nivel  (r = 0, g = 255 b = 0)
+azul = spawn de plataforma que se mueve horizontal  (r = 0, g = 0 b = 255)
+amarillo = spawn del juagador  (r = 255, g = 255 b = 0)
+celeste = spawn de plataforma que se mueve vertical  (r = 0, g = 255 b = 255)
+cualquier otro color = espacio vacio

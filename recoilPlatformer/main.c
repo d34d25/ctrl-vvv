@@ -6,7 +6,10 @@ typedef enum GameScreen { LOGO, TITLE, GAMEPLAY, MENU } GameScreen;
 
 int main() 
 {
-    InitWindow(192 * 4, 160 * 4.5f, ""); // 192 * 4, 160 * 4.5f
+    //SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+
+    InitWindow(192 * 4, 160 * 4.5f, ""); // 192 * 4, 160 * 4.5f   
+
     //initialize here
 
     GameScreen currentScreen = GAMEPLAY;
@@ -19,7 +22,7 @@ int main()
         break;
     }
 
-    SetTargetFPS(60);
+    SetTargetFPS(120);
 
     while (!WindowShouldClose()) 
     {
