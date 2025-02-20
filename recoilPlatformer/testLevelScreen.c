@@ -1,5 +1,6 @@
 #include "testLevelScreen.h"
 #include "player.h"
+#include "platforms.h"
 #include <math.h>
 
 const int MAX_LEVELS = 3;
@@ -11,6 +12,10 @@ float gridSizeX; //122% more
 
 Rectangle checkArea;
 
+struct Platform horizontalPlatforms[20];
+int platformIndex;
+
+
 int level;
 char fileName[50];
 bool levelChangeTriggered;
@@ -19,8 +24,10 @@ float gameplay_deltaTime;
 float gameplay_accumulatedTime;
 float gameplay_fixedDeltaTime;
 
+
 void loadLevelData(const char* levelPath) //assets/level.png
 {
+
     Image levelImage = LoadImage(levelPath);// Load the 40x40 PNG
 
     if (levelImage.data == NULL) 
@@ -30,6 +37,8 @@ void loadLevelData(const char* levelPath) //assets/level.png
     }
 
     printf("level%d", level);
+
+    platformIndex = 0;
 
     for (int i = 0; i < ROWS; i++) 
     {
@@ -65,6 +74,39 @@ void loadLevelData(const char* levelPath) //assets/level.png
                 //spike
                 testLevel[i][j] = 2;
             }
+            else if (pixel.r == 0 && pixel.g == 0 && pixel.b == 255)
+            {
+                testLevel[i][j] = 3; //moving platform starting right
+
+                Vector2 startPos;
+
+                startPos.x = i * gridSizeX;
+                startPos.y = j * gridSizeY;
+
+                Vector2 startVel;
+                startVel.x = 100;
+                startVel.y = 0;
+
+                horizontalPlatforms[platformIndex] = initPlatform(gridSizeX * 5, gridSizeY, startPos, startVel);
+                if (platformIndex < 19)
+                {
+                    platformIndex++;
+                }
+
+
+            }
+            else if (pixel.r == 0 && pixel.g == 255 && pixel.b == 255)
+            {
+                testLevel[i][j] = 3.5; //moving platform starting left
+            }
+            else if (pixel.r == 255 && pixel.g == 0 && pixel.b == 255)
+            {
+                testLevel[i][j] = 4; //moving platform starting up
+            }
+            else if (pixel.r == 100 && pixel.g == 0 && pixel.b == 255)
+            {
+                testLevel[i][j] = 4.5; //moving platform starting down
+            }
             else 
             {
                 testLevel[i][j] = 0;  // Empty space
@@ -79,26 +121,31 @@ void loadLevelData(const char* levelPath) //assets/level.png
 
 void drawLevel(Color tileColor)
 {
-    for (int i = 0; i < ROWS; i++)  // Updated to match the ROWS constant
+    for (int i = 0; i < ROWS; i++)
     {
-        for (int j = 0; j < COLS; j++)  // Updated to match the COLS constant
+        for (int j = 0; j < COLS; j++)
         {
             switch (testLevel[i][j])
             {
             case 1:
                 DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, tileColor);
                 break;
-            case 2:
+            case 2://spike
                 DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, RED);
                 break;
-            case -2: 
+            case -2: //goal
                 DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, GREEN);
                 break;
-            case -1:
+            case -1: //spawnpoint
                 DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, ORANGE);
-                break;
+                break;                
             default:
                 break;
+            }
+
+            if (testLevel[i][j] > 2 || testLevel[i][j]< -2)
+            {
+                //DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, GRAY);
             }
         }
     }
@@ -132,12 +179,29 @@ void testGameplayScreenInit()
 
 }
 
-    
 
 void testGameplayScreenUpdate()
 {
     gameplay_deltaTime = GetFrameTime();
     gameplay_accumulatedTime += gameplay_deltaTime;    
+
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLS; j++)
+        {
+            if (testLevel[i][j] != 0 && !(testLevel[i][j] >=3 && testLevel[i][j] <= 4.5))
+            {
+                Rectangle mapRect = { i * gridSizeX, j * gridSizeY, gridSizeX, gridSizeY };
+
+                for (int i = 0; i < platformIndex; i++)
+                {
+                    resolveCollisionsPlatformTiles(&horizontalPlatforms[i], &mapRect, gameplay_fixedDeltaTime);
+                }
+               
+            }
+
+        }
+    }
 
     while (gameplay_accumulatedTime >= gameplay_fixedDeltaTime)
     {
@@ -172,6 +236,7 @@ void testGameplayScreenUpdate()
                     {
                     case 1: //solid tile
                         resolveCollisions(&player, &mapRect, gameplay_fixedDeltaTime);
+
                         break;
                     case -2: // goal
                         if (!levelChangeTriggered && (checkHorizontalCollisions(&player, &mapRect, gameplay_fixedDeltaTime) ||
@@ -216,16 +281,30 @@ void testGameplayScreenUpdate()
                     }
                 }
             }
+
         }
+
+        for (int i = 0; i < platformIndex; i++) 
+        {
+            resolveCollisionsPlatformsX(&player, &horizontalPlatforms[i], gameplay_fixedDeltaTime);
+            
+        }
+
 
         updatePlayer(&player, gameplay_fixedDeltaTime);
 
+        for (int i = 0; i < platformIndex; i++)
+        {
+            updatePlatform(&horizontalPlatforms[i], gameplay_fixedDeltaTime);
+        }
+        
+       
+        //printf("Platform index: %d\n", platformIndex);
+
+
         gameplay_accumulatedTime -= gameplay_fixedDeltaTime;
     }
-
-
-
-    
+ 
 }
 
 void testGameplayScreenDraw()
@@ -247,7 +326,12 @@ void testGameplayScreenDraw()
    checkAreaColor.g = 200;
    checkAreaColor.b = 200;
 
+   for (int i = 0; i < platformIndex; i++)
+   {
+       drawPlatform(&horizontalPlatforms[i], currentColor);;
+   }
    
+
    drawLevel(currentColor);
    //DrawRectangle(checkArea.x, checkArea.y, checkArea.width, checkArea.height, checkAreaColor);
    drawPlayer(&player);

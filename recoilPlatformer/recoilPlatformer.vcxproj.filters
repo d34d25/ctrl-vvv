@@ -16,9 +16,6 @@
     <Filter Include="Source Files\player">
       <UniqueIdentifier>{c5922e32-d9e4-4298-a2e6-47d3c5b6ad9e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\levels">
-      <UniqueIdentifier>{44a1dbd2-f2af-4d17-8b5d-04273a5b61d0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\screens">
       <UniqueIdentifier>{282a743d-ae63-408f-b8be-fcc4709f4730}</UniqueIdentifier>
     </Filter>
@@ -28,8 +25,11 @@
     <Filter Include="Header Files\screens">
       <UniqueIdentifier>{28147860-29ef-412b-916c-918ddab21253}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\levels">
-      <UniqueIdentifier>{037a0fe1-8982-4096-9582-d8504d32709d}</UniqueIdentifier>
+    <Filter Include="Header Files\obstacles">
+      <UniqueIdentifier>{a7bf9b08-a16a-440b-a091-2ba09095f855}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\obstacles">
+      <UniqueIdentifier>{488972a0-3fa7-4895-b385-77a98b83df9b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +45,9 @@
     <ClCompile Include="titleScreen.c">
       <Filter>Source Files\screens</Filter>
     </ClCompile>
+    <ClCompile Include="platforms.c">
+      <Filter>Source Files\obstacles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="player.h">
@@ -55,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="testLevelScreen.h">
       <Filter>Header Files\screens</Filter>
+    </ClInclude>
+    <ClInclude Include="platforms.h">
+      <Filter>Header Files\obstacles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

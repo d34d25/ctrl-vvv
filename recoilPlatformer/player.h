@@ -11,11 +11,11 @@ struct Player
 {
 	int width;
 	int height;
+
 	Vector2 position;
 	Vector2 velocity;
-	Vector2 aimPoint;
-	float cooldown;
-	int timesShot;
+	Vector2 acceleration;
+
 	bool gravityInversed;
 	bool inAir;
 };
@@ -37,10 +37,11 @@ bool checkVerticalCollisions(struct Player* player, Rectangle* obstacle, float d
 void resolveCollisions(struct Player* player, Rectangle* obstacle, float dt);
 
 //movement
-void applyForce(struct Player* player);
 
 void move(struct Player* player);
 
 void applyDeacceleration(struct Player* player);
+
+void resolveCollisionsPlatformsX(struct Player* player, struct Platform* p, float dt);
 
 #endif 

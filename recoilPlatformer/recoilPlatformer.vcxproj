@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="platforms.c" />
     <ClCompile Include="player.c" />
     <ClCompile Include="testLevelScreen.c" />
     <ClCompile Include="titleScreen.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="platforms.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="testLevelScreen.h" />
     <ClInclude Include="titleScreen.h" />
