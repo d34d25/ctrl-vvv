@@ -59,7 +59,7 @@ void applyGravity(struct Player* player)
 void move(struct Player* player)
 {
 	float force = 100.0f;
-	float moveSpeed = 3.0f * force;
+	float moveSpeed = 2.5f * force; //3.0f
 
 	if (IsKeyDown(KEY_LEFT))
 	{
@@ -72,8 +72,6 @@ void move(struct Player* player)
 	else
 	{
 		applyDeacceleration(player);
-		player->acceleration.x = 0.0f;
-		player->acceleration.y = 0.0f;
 	}
 
 
@@ -81,6 +79,10 @@ void move(struct Player* player)
 	{
 		player->gravityInversed = !player->gravityInversed;
 	}
+
+	player->acceleration.x = 0.0f;
+	player->acceleration.y = 0.0f;
+
 }
 
 void applyDeacceleration(struct Player* player)
@@ -261,6 +263,29 @@ void resolveCollisionsPlatformsY(struct Player* player, struct Platform* p, floa
 		player->inAir = true;
 	}
 
+}
+
+void checkCollisionsMovingSpikes(struct Player* player,struct Platform* p, float dt)
+{
+	Rectangle obstacle;
+
+	obstacle.x = p->position.x;
+	obstacle.y = p->position.y;
+
+	obstacle.width = p->width;
+	obstacle.height = p->height;
+
+	if (checkHorizontalCollisions(player, &obstacle, dt) || checkVerticalCollisions(player, &obstacle, dt))
+	{
+		return true;
+	}
+
+	return false;
+
+}
+
+void resolveCollisionsMovingSpikesY(struct Player* player,struct Platform* p, float dt)
+{
 }
 
 

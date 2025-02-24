@@ -1,4 +1,4 @@
-#include "testLevelScreen.h"
+﻿#include "testLevelScreen.h"
 #include "player.h"
 #include "platforms.h"
 #include <math.h>
@@ -6,17 +6,26 @@
 const int MAX_LEVELS = 3;
 
 struct Player player;
+Vector2 startPos;
 
 float gridSizeY; 
 float gridSizeX; //122% more
 
 Rectangle checkArea;
 
-struct Platform horizontalPlatforms[20];
+#define MAXPLATFORMS 30  // ✅ Preprocessor macro for compile-time constant
+
+struct Platform horizontalPlatforms[MAXPLATFORMS];
 int platformIndexHorizontal;
 
-struct Platform verticalPlatforms[20];
+struct Platform verticalPlatforms[MAXPLATFORMS];
 int platformIndexVertical;
+
+struct Platform movingSpikesHorizontal[MAXPLATFORMS];
+int movingSpikesIndexHorizontal;
+
+struct Platform movingSpikesVertical[MAXPLATFORMS];
+int movingSpikesIndexVertical;
 
 int level;
 char fileName[50];
@@ -41,6 +50,10 @@ void loadLevelData(const char* levelPath) //assets/level.png
     printf("level%d", level);
 
     platformIndexHorizontal = 0;
+    platformIndexVertical = 0;
+
+    movingSpikesIndexHorizontal = 0;
+    movingSpikesIndexVertical = 0;
 
     for (int i = 0; i < ROWS; i++) 
     {
@@ -62,7 +75,7 @@ void loadLevelData(const char* levelPath) //assets/level.png
                 testLevel[i][j] = -1;
 
                 // Player initialization
-                Vector2 startPos;
+                
 
                 startPos.x = i * gridSizeX;
                 startPos.y = j * gridSizeY;
@@ -91,7 +104,7 @@ void loadLevelData(const char* levelPath) //assets/level.png
 
 
 
-                if (platformIndexHorizontal < 19)
+                if (platformIndexHorizontal < MAXPLATFORMS)
                 {
                     platformIndexHorizontal++;
                 }
@@ -103,7 +116,7 @@ void loadLevelData(const char* levelPath) //assets/level.png
                 testLevel[i][j] = 3.5; //moving platform vertical
 
                 verticalPlatforms[platformIndexVertical] = initPlatform(
-                    gridSizeX * 8,
+                    gridSizeX * 5,
                     gridSizeY,
                     (Vector2) {
                     i* gridSizeX, j* gridSizeY},  // Directly initializing startPos
@@ -112,7 +125,7 @@ void loadLevelData(const char* levelPath) //assets/level.png
                 );
 
 
-                if (platformIndexVertical < 19)
+                if (platformIndexVertical < MAXPLATFORMS)
                 {
                     platformIndexVertical++;
                 }
@@ -120,11 +133,45 @@ void loadLevelData(const char* levelPath) //assets/level.png
             }
             else if (pixel.r == 255 && pixel.g == 0 && pixel.b == 255)
             {
-                testLevel[i][j] = 4; 
+                //should be easy 
+                testLevel[i][j] = 4; //moving "spikes" horizontal
+
+                 movingSpikesHorizontal[movingSpikesIndexHorizontal] = initPlatform(
+                    gridSizeX,
+                    gridSizeY,
+                    (Vector2){
+                    i * gridSizeX, j * gridSizeY},
+                    (Vector2){
+                    (GetRandomValue(0, 1) == 0) ? -100.0f : 100.0f,0.0f}
+                );
+
+                 if (movingSpikesIndexHorizontal < MAXPLATFORMS)
+                 {
+                     movingSpikesIndexHorizontal++;
+                 }
+
+            }
+            else if (pixel.r == 255 && pixel.g == 0 && pixel.b == 100)
+            {
+                testLevel[i][j] = 4.5;//moving "spikes" vertical
+
+                movingSpikesVertical[movingSpikesIndexVertical] = initPlatform(
+                    gridSizeX,
+                    gridSizeY,
+                    (Vector2) {
+                    i* gridSizeX, j* gridSizeY},  // Directly initializing startPos
+                    (Vector2) {
+                    0.0f, (GetRandomValue(0, 1) == 0) ? -100.0f : 100.0f}  // Directly initializing startVel
+                );
+
+                if (movingSpikesIndexVertical < MAXPLATFORMS)
+                {
+                    movingSpikesIndexVertical++;
+                }
             }
             else if (pixel.r == 100 && pixel.g == 0 && pixel.b == 255)
             {
-                testLevel[i][j] = 4.5;
+                testLevel[i][j] = 5; //portals
             }
             else 
             {
@@ -202,29 +249,45 @@ void testGameplayScreenInit()
 void testGameplayScreenUpdate()
 {
     gameplay_deltaTime = GetFrameTime();
-    gameplay_accumulatedTime += gameplay_deltaTime;    
-
-    for (int i = 0; i < ROWS; i++)
-    {
-        for (int j = 0; j < COLS; j++)
-        {
-            if (testLevel[i][j] != 0 && !(testLevel[i][j] >=3 && testLevel[i][j] <= 4.5))
-            {
-                Rectangle mapRect = { i * gridSizeX, j * gridSizeY, gridSizeX, gridSizeY };
-
-                for (int i = 0; i < platformIndexHorizontal; i++)
-                {
-                    resolveCollisionsPlatformTiles(&horizontalPlatforms[i], &mapRect, gameplay_fixedDeltaTime);
-                    resolveCollisionsPlatformTiles(&verticalPlatforms[i], &mapRect, gameplay_fixedDeltaTime);
-                }
-               
-            }
-
-        }
-    }
+    gameplay_accumulatedTime += gameplay_deltaTime;
 
     while (gameplay_accumulatedTime >= gameplay_fixedDeltaTime)
     {
+
+        for (int i = 0; i < ROWS; i++)
+        {
+            for (int j = 0; j < COLS; j++)
+            {
+                if (testLevel[i][j] != 0 && !(testLevel[i][j] >= 3 && testLevel[i][j] <= 4.5))
+                {
+                    Rectangle mapRect = { i * gridSizeX, j * gridSizeY, gridSizeX, gridSizeY };
+
+                    for (int i = 0; i < platformIndexHorizontal; i++)
+                    {
+                        resolveCollisionsPlatformTiles(&horizontalPlatforms[i], &mapRect, gameplay_fixedDeltaTime);
+                       
+                    }
+
+                    for (int i = 0; i < platformIndexVertical; i++)
+                    {
+                        resolveCollisionsPlatformTiles(&verticalPlatforms[i], &mapRect, gameplay_fixedDeltaTime);
+                    }
+
+                    for (int i = 0; i < movingSpikesIndexHorizontal; i++)
+                    {
+                        resolveCollisionsPlatformTiles(&movingSpikesHorizontal[i], &mapRect, gameplay_fixedDeltaTime);
+                    }
+
+                    for (int i = 0; i < movingSpikesIndexVertical; i++)
+                    {
+                        resolveCollisionsPlatformTiles(&movingSpikesVertical[i], &mapRect, gameplay_fixedDeltaTime);
+                    }
+
+                }
+
+            }
+        }
+
         move(&player);
 
         applyGravity(&player);
@@ -275,23 +338,16 @@ void testGameplayScreenUpdate()
                     case 2: //spike
                         if (checkHorizontalCollisions(&player, &mapRect, gameplay_fixedDeltaTime) || checkVerticalCollisions(&player, &mapRect, gameplay_fixedDeltaTime))
                         {
-                            for (int i = 0; i < ROWS; i++)
-                            {
-                                for (int j = 0; j < COLS; j++)
-                                {
-                                    if (testLevel[i][j] == -1)
-                                    {
-                                        player.position.x = gridSizeX * i;
-                                        player.position.y = gridSizeY * j;
 
-                                        player.velocity.x = 0;
-                                        player.velocity.y = 0;
+                            player.position = startPos;
 
-                                        player.gravityInversed = false;
+                            player.velocity.x = 0;
+                            player.velocity.y = 0;
 
-                                    }
-                                }
-                            }
+                            player.acceleration.x = 0;
+                            player.acceleration.y = 0;
+
+                            player.gravityInversed = false;
                             
                         }
 
@@ -302,6 +358,38 @@ void testGameplayScreenUpdate()
                 }
             }
 
+        }
+
+        for (int i = 0; i < movingSpikesIndexHorizontal; i++)
+        {
+            if (checkCollisionsMovingSpikes(&player, &movingSpikesHorizontal[i], gameplay_fixedDeltaTime))
+            {
+                player.position = startPos;
+
+                player.velocity.x = 0;
+                player.velocity.y = 0;
+
+                player.acceleration.x = 0;
+                player.acceleration.y = 0;
+
+                player.gravityInversed = false;
+            }
+        }
+
+        for (int i = 0; i < movingSpikesIndexVertical; i++)
+        {
+            if (checkCollisionsMovingSpikes(&player, &movingSpikesVertical[i], gameplay_fixedDeltaTime))
+            {
+                player.position = startPos;
+
+                player.velocity.x = 0;
+                player.velocity.y = 0;
+
+                player.acceleration.x = 0;
+                player.acceleration.y = 0;
+
+                player.gravityInversed = false;
+            }
         }
 
         for (int i = 0; i < platformIndexHorizontal; i++) 
@@ -316,6 +404,7 @@ void testGameplayScreenUpdate()
         }
 
 
+
         updatePlayer(&player, gameplay_fixedDeltaTime);
 
         for (int i = 0; i < platformIndexHorizontal; i++)
@@ -328,6 +417,16 @@ void testGameplayScreenUpdate()
         {
             updatePlatform(&verticalPlatforms[i], gameplay_fixedDeltaTime);
         }
+
+        for (int i = 0; i < movingSpikesIndexHorizontal; i++)
+        {
+            updatePlatform(&movingSpikesHorizontal[i], gameplay_fixedDeltaTime);
+        }
+
+        for (int i = 0; i < movingSpikesIndexVertical; i++)
+        {
+            updatePlatform(&movingSpikesVertical[i], gameplay_fixedDeltaTime);
+        }
        
         //printf("Platform index: %d\n", platformIndex);
 
@@ -337,17 +436,49 @@ void testGameplayScreenUpdate()
  
 }
 
+
+void drawPlayerVelocity(struct Player* player)
+{
+    char velocityText[50];  // Buffer for text
+    char accelerationText[50];
+    snprintf(velocityText, sizeof(velocityText), "Velocity: x=%.2f y=%.2f", player->velocity.x, player->velocity.y);
+    snprintf(accelerationText, sizeof(accelerationText), "Acceleration: x=%.2f y=%.2f", player->acceleration.x, player->acceleration.y);
+
+    DrawText(velocityText, 10, 10, 20, WHITE);
+    DrawText(accelerationText, 10, 30, 20, WHITE);
+}
+
+
 void testGameplayScreenDraw()
 {
+    int screenWidth = GetScreenWidth();
+    int screenHeight = GetScreenHeight();
+
+
+    float worldWidth = gridSizeX * 70;
+    float worldHeight = gridSizeY * 70;
+
+
+    Camera2D camera = { 0 };
+
+    Vector2 center = { worldWidth / 2, worldHeight / 2 };
+
+    camera.target = center;
+    camera.offset = (Vector2){ screenWidth / 2.0f, screenHeight / 2.73f };
+    camera.rotation = 0.0f;
+    camera.zoom = 0.83f;
+
+    BeginMode2D(camera);
+
     Color currentColor = YELLOW;
 
    switch (level % 5)  // Cycles every 5 levels
    {
-   case 0: currentColor = YELLOW; break;
-   case 1: currentColor = SKYBLUE; break;
-   case 2: currentColor = PINK; break;
-   case 3: currentColor = BLUE; break;
-   case 4: currentColor = DARKGREEN; break;
+       case 0: currentColor = YELLOW; break;
+       case 1: currentColor = SKYBLUE; break;
+       case 2: currentColor = PINK; break;
+       case 3: currentColor = BLUE; break;
+       case 4: currentColor = DARKGREEN; break;
    }
 
    Color checkAreaColor;
@@ -367,9 +498,26 @@ void testGameplayScreenDraw()
        drawPlatform(&verticalPlatforms[i], currentColor);
    }
 
+   for (int i = 0; i < movingSpikesIndexHorizontal; i++)
+   {
+       drawPlatform(&movingSpikesHorizontal[i], RED);
+   }
+
+   for (int i = 0; i < movingSpikesIndexVertical; i++)
+   {
+       drawPlatform(&movingSpikesVertical[i], RED);
+   }
+
    drawLevel(currentColor);
    //DrawRectangle(checkArea.x, checkArea.y, checkArea.width, checkArea.height, checkAreaColor);
    drawPlayer(&player);
+
+   //menu
+   DrawRectangle(0, 620, 192 * 4, 100, GRAY);
+
+   drawPlayerVelocity(&player);
+
+   EndMode2D();
 }
 
 //level stuff

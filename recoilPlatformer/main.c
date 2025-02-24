@@ -8,9 +8,15 @@ int main()
 {
     //SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 
-    InitWindow(192 * 4, 160 * 4.5f, ""); // 192 * 4, 160 * 4.5f   
+    int screenWidth = 192 * 4;
+    int screenHeight = 160 * 4.5f;
 
+    InitWindow(screenWidth, screenHeight, ""); // 192 * 4, 160 * 4.5f   
+
+    ToggleFullscreen();
     //initialize here
+
+    
 
     GameScreen currentScreen = GAMEPLAY;
     
@@ -40,9 +46,6 @@ int main()
         
         //draw here
         ClearBackground(BLACK);
-        
-        //menu
-        DrawRectangle(0, 620, 192 * 4, 100, GRAY);
 
         //end menu
 
@@ -55,6 +58,7 @@ int main()
             break;
         }
 
+       
 
         EndDrawing();
     }
