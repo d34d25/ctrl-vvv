@@ -31,6 +31,12 @@
     <Filter Include="Source Files\obstacles">
       <UniqueIdentifier>{488972a0-3fa7-4895-b385-77a98b83df9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\textures">
+      <UniqueIdentifier>{b759eb73-63d5-4309-bc09-94d83ba947a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\textures">
+      <UniqueIdentifier>{6ea505db-23f5-4078-b35d-345b6b81e6f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -48,6 +54,9 @@
     <ClCompile Include="platforms.c">
       <Filter>Source Files\obstacles</Filter>
     </ClCompile>
+    <ClCompile Include="textures.c">
+      <Filter>Source Files\textures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="player.h">
@@ -61,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="platforms.h">
       <Filter>Header Files\obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="textures.h">
+      <Filter>Header Files\textures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

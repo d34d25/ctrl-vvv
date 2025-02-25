@@ -9,7 +9,7 @@ int main()
     //SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 
     int screenWidth = 192 * 4;
-    int screenHeight = 160 * 4.5f;
+    int screenHeight = 160 * 4; //160 * 4; 
 
     InitWindow(screenWidth, screenHeight, ""); // 192 * 4, 160 * 4.5f   
 
@@ -28,7 +28,7 @@ int main()
         break;
     }
 
-    SetTargetFPS(120);
+    SetTargetFPS(144);
 
     while (!WindowShouldClose()) 
     {

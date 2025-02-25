@@ -46,6 +46,12 @@ void resolveCollisionsPlatformsX(struct Player* player, struct Platform* p, floa
 void resolveCollisionsPlatformsY(struct Player* player, struct Platform* p, float dt);
 
 bool checkCollisionsMovingSpikes(struct Player* player, struct Platform* p, float dt);
-void resolveCollisionsMovingSpikesY(struct Player* player, struct Platform* p, float dt);
+void resolveCollisionsBounceY(struct Player* player, Rectangle* obstacle, float dt);
+void resolveCollisionsGravInversor(struct Player* player, struct Platform* p, float dt);
+
+void resolvePlayerOutOfBounds(struct Player* player, float worldWidth, float worldHeight, float gridX, float gridY);
+
+void resolveSpeedChangingTilesR(struct Player* player, Rectangle* obstacle, float dt);
+void resolveSpeedChangingTilesL(struct Player* player, Rectangle* obstacle, float dt);
 
 #endif 

@@ -3,32 +3,40 @@
   "WorkspaceRootPath": "E:\\Programming projects\\C\\recoilplatformer\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\testLevelScreen.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\testLevelScreen.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\platforms.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\platforms.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\testLevelScreen.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\testLevelScreen.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\platforms.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\platforms.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\testLevelScreen.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\testLevelScreen.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\textures.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\textures.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\platforms.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\platforms.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\platforms.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\platforms.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\textures.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A69C1A2E-5116-480B-BEAC-E48D64C07FE8}|recoilPlatformer\\recoilPlatformer.vcxproj|solutionrelative:recoilPlatformer\\textures.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,21 +46,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "player.c",
-              "DocumentMoniker": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\player.c",
-              "RelativeDocumentMoniker": "recoilPlatformer\\player.c",
-              "ToolTip": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\player.c",
-              "RelativeToolTip": "recoilPlatformer\\player.c",
-              "ViewState": "AgIAAFUAAAAAAAAAAAAewBoBAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-02-01T05:20:58.178Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
@@ -61,40 +56,89 @@
               "RelativeDocumentMoniker": "recoilPlatformer\\player.h",
               "ToolTip": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\player.h",
               "RelativeToolTip": "recoilPlatformer\\player.h",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAC8AAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAADYAAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-02-18T21:28:53.021Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "player.c",
+              "DocumentMoniker": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\player.c",
+              "RelativeDocumentMoniker": "recoilPlatformer\\player.c",
+              "ToolTip": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\player.c",
+              "RelativeToolTip": "recoilPlatformer\\player.c",
+              "ViewState": "AgIAAL8AAAAAAAAAAAAewNoAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-02-01T05:20:58.178Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "textures.c",
+              "DocumentMoniker": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\textures.c",
+              "RelativeDocumentMoniker": "recoilPlatformer\\textures.c",
+              "ToolTip": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\textures.c",
+              "RelativeToolTip": "recoilPlatformer\\textures.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-02-25T06:45:36.281Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "textures.h",
+              "DocumentMoniker": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\textures.h",
+              "RelativeDocumentMoniker": "recoilPlatformer\\textures.h",
+              "ToolTip": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\textures.h",
+              "RelativeToolTip": "recoilPlatformer\\textures.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-02-25T06:45:21.485Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "platforms.h",
               "DocumentMoniker": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\platforms.h",
               "RelativeDocumentMoniker": "recoilPlatformer\\platforms.h",
               "ToolTip": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\platforms.h",
               "RelativeToolTip": "recoilPlatformer\\platforms.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-02-18T21:25:51.287Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-18T21:25:51.287Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "platforms.c",
               "DocumentMoniker": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\platforms.c",
               "RelativeDocumentMoniker": "recoilPlatformer\\platforms.c",
               "ToolTip": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\platforms.c",
               "RelativeToolTip": "recoilPlatformer\\platforms.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAE8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-02-18T21:36:16.029Z",
+              "WhenOpened": "2025-02-18T21:36:16.029Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "testLevelScreen.c",
+              "DocumentMoniker": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\testLevelScreen.c",
+              "RelativeDocumentMoniker": "recoilPlatformer\\testLevelScreen.c",
+              "ToolTip": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\testLevelScreen.c",
+              "RelativeToolTip": "recoilPlatformer\\testLevelScreen.c",
+              "ViewState": "AgIAAPAAAAAAAAAAAAAewAQBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-02-01T07:32:03.722Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "testLevelScreen.h",
               "DocumentMoniker": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\testLevelScreen.h",
               "RelativeDocumentMoniker": "recoilPlatformer\\testLevelScreen.h",
@@ -102,30 +146,18 @@
               "RelativeToolTip": "recoilPlatformer\\testLevelScreen.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-02-01T05:52:59.251Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "testLevelScreen.c",
-              "DocumentMoniker": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\testLevelScreen.c",
-              "RelativeDocumentMoniker": "recoilPlatformer\\testLevelScreen.c",
-              "ToolTip": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\testLevelScreen.c",
-              "RelativeToolTip": "recoilPlatformer\\testLevelScreen.c",
-              "ViewState": "AgIAADABAAAAAAAAAAAewEsBAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-02-01T07:32:03.722Z",
+              "WhenOpened": "2025-02-01T05:52:59.251Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "main.c",
               "DocumentMoniker": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\main.c",
               "RelativeDocumentMoniker": "recoilPlatformer\\main.c",
               "ToolTip": "E:\\Programming projects\\C\\recoilplatformer\\recoilPlatformer\\main.c",
               "RelativeToolTip": "recoilPlatformer\\main.c",
-              "ViewState": "AgIAABoAAAAAAAAAAAAAAA8AAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB4AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-02-01T05:18:12.973Z",
               "EditorCaption": ""

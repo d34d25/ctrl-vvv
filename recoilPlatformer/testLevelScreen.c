@@ -3,7 +3,12 @@
 #include "platforms.h"
 #include <math.h>
 
-const int MAX_LEVELS = 3;
+const int MAX_LEVELS = 4;
+
+Texture2D tileR;
+
+Texture2D tileL;
+
 
 struct Player player;
 Vector2 startPos;
@@ -13,7 +18,7 @@ float gridSizeX; //122% more
 
 Rectangle checkArea;
 
-#define MAXPLATFORMS 30  // ✅ Preprocessor macro for compile-time constant
+#define MAXPLATFORMS 30
 
 struct Platform horizontalPlatforms[MAXPLATFORMS];
 int platformIndexHorizontal;
@@ -27,6 +32,9 @@ int movingSpikesIndexHorizontal;
 struct Platform movingSpikesVertical[MAXPLATFORMS];
 int movingSpikesIndexVertical;
 
+struct Platform gravityInversors[MAXPLATFORMS];
+int gravInversorIndex;
+
 int level;
 char fileName[50];
 bool levelChangeTriggered;
@@ -35,6 +43,8 @@ float gameplay_deltaTime;
 float gameplay_accumulatedTime;
 float gameplay_fixedDeltaTime;
 
+
+//Initialization
 
 void loadLevelData(const char* levelPath) //assets/level.png
 {
@@ -54,6 +64,7 @@ void loadLevelData(const char* levelPath) //assets/level.png
 
     movingSpikesIndexHorizontal = 0;
     movingSpikesIndexVertical = 0;
+    gravInversorIndex = 0;
 
     for (int i = 0; i < ROWS; i++) 
     {
@@ -171,7 +182,33 @@ void loadLevelData(const char* levelPath) //assets/level.png
             }
             else if (pixel.r == 100 && pixel.g == 0 && pixel.b == 255)
             {
-                testLevel[i][j] = 5; //portals
+                testLevel[i][j] = 5; //bounce vertical
+            }
+            else if (pixel.r == 100 && pixel.g == 100 && pixel.b == 255)
+            {
+                testLevel[i][j] = 6; // gravity inversor
+
+                gravityInversors[gravInversorIndex] = initPlatform( 
+                    gridSizeX,//only works when they're the size of only one tile
+                    gridSizeY,
+                    (Vector2) {
+                    i* gridSizeX, j* gridSizeY},
+                    (Vector2) {
+                    0.0f, 0.0f} 
+                );
+
+                if (gravInversorIndex < MAXPLATFORMS)
+                {
+                    gravInversorIndex++;
+                }
+            }
+            else if (pixel.r == 255 && pixel.g == 100 && pixel.b == 0) //speed changing tile right orange
+            {
+                testLevel[i][j] = 7;
+            }
+            else if (pixel.r == 0 && pixel.g == 100 && pixel.b == 255) //speed changing tile left blue
+            {
+                testLevel[i][j] = 8;
             }
             else 
             {
@@ -184,39 +221,6 @@ void loadLevelData(const char* levelPath) //assets/level.png
 
 }
 
-
-void drawLevel(Color tileColor)
-{
-    for (int i = 0; i < ROWS; i++)
-    {
-        for (int j = 0; j < COLS; j++)
-        {
-            switch (testLevel[i][j])
-            {
-            case 1:
-                DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, tileColor);
-                break;
-            case 2://spike
-                DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, RED);
-                break;
-            case -2: //goal
-                DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, GREEN);
-                break;
-            case -1: //spawnpoint
-                DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, ORANGE);
-                break;                
-            default:
-                break;
-            }
-
-            if (testLevel[i][j] > 2 || testLevel[i][j]< -2)
-            {
-                //DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, GRAY);
-            }
-        }
-    }
-}
-
 void testGameplayScreenInit()
 {
     level = 0;
@@ -224,27 +228,34 @@ void testGameplayScreenInit()
     ROWS = 70;
     COLS = 70;
 
-    gameplay_fixedDeltaTime = 1.0f / 120.0f;
+    gameplay_fixedDeltaTime = 1.0f / 144.0f; //default 120
 
     // Get screen dimensions
-    float screenWidth = 192 * 4;
-    float screenHeight = 160 * 4;
+    float screenWidth = GetScreenWidth(); //192 * 4
+    float screenHeight = GetScreenHeight(); //160 * 4
 
     gridSizeY = screenHeight / ROWS;  // Calculate grid size based on screen height and rows
     gridSizeX = gridSizeY * 1.22f;              // Maintain 1.22 aspect ratio for grid width
 
-    if (gridSizeX * COLS > screenWidth) 
+    if (gridSizeX * COLS > screenWidth)
     {
         gridSizeX = screenWidth / COLS;   // Adjust if too wide
         gridSizeY = gridSizeX / 1.22f;     // Maintain aspect ratio
     }
 
     // Level initialization
+
+    tileR = LoadTexture("assets/speedchangetileR.png");
+    tileL = LoadTexture("assets/speedchangetileL.png");
+
     snprintf(fileName, sizeof(fileName), "assets/level%d.png", level);
     loadLevelData(fileName);
+    printf("Grid Size X: %.2f, Grid Size Y: %.2f\n", gridSizeX, gridSizeY);
 
 }
 
+
+//Updating
 
 void testGameplayScreenUpdate()
 {
@@ -258,6 +269,7 @@ void testGameplayScreenUpdate()
         {
             for (int j = 0; j < COLS; j++)
             {
+
                 if (testLevel[i][j] != 0 && !(testLevel[i][j] >= 3 && testLevel[i][j] <= 4.5))
                 {
                     Rectangle mapRect = { i * gridSizeX, j * gridSizeY, gridSizeX, gridSizeY };
@@ -293,8 +305,8 @@ void testGameplayScreenUpdate()
         applyGravity(&player);
         
         // Dynamically adjust checkArea size based on grid size
-        checkArea.width = gridSizeX * 6;  // Adjust checkArea to cover multiple grid cells
-        checkArea.height = gridSizeY * 6;
+        checkArea.width = gridSizeX * 8;  // Adjust checkArea to cover multiple grid cells
+        checkArea.height = gridSizeY * 12;
 
         checkArea.x = player.position.x + (player.width / 2) - (checkArea.width / 2);
         checkArea.y = player.position.y + (player.height / 2) - (checkArea.height / 2);
@@ -352,6 +364,16 @@ void testGameplayScreenUpdate()
                         }
 
                         break;
+                    case 5: //bounce vertical
+
+                        resolveCollisionsBounceY(&player, &mapRect, gameplay_fixedDeltaTime);
+                        break;
+                    case 7:
+                        resolveSpeedChangingTilesR(&player, &mapRect, gameplay_fixedDeltaTime);
+                        break;
+                    case 8:
+                        resolveSpeedChangingTilesL(&player, &mapRect, gameplay_fixedDeltaTime);
+                        break;
                     default:
                         break;
                     }
@@ -359,6 +381,7 @@ void testGameplayScreenUpdate()
             }
 
         }
+
 
         for (int i = 0; i < movingSpikesIndexHorizontal; i++)
         {
@@ -403,7 +426,12 @@ void testGameplayScreenUpdate()
             resolveCollisionsPlatformsY(&player, &verticalPlatforms[i], gameplay_fixedDeltaTime);
         }
 
+        for (int i = 0; i < gravInversorIndex; i++)
+        {
+            resolveCollisionsGravInversor(&player, &gravityInversors[i], gameplay_fixedDeltaTime);
+        }
 
+        resolvePlayerOutOfBounds(&player, gridSizeX * 70, gridSizeY * 70, gridSizeX, gridSizeY);
 
         updatePlayer(&player, gameplay_fixedDeltaTime);
 
@@ -427,6 +455,11 @@ void testGameplayScreenUpdate()
         {
             updatePlatform(&movingSpikesVertical[i], gameplay_fixedDeltaTime);
         }
+
+        for (int i = 0; i < gravInversorIndex; i++)
+        {
+            updatePlatform(&gravityInversors[i], gameplay_fixedDeltaTime);
+        }
        
         //printf("Platform index: %d\n", platformIndex);
 
@@ -436,6 +469,7 @@ void testGameplayScreenUpdate()
  
 }
 
+//Drawing
 
 void drawPlayerVelocity(struct Player* player)
 {
@@ -448,6 +482,69 @@ void drawPlayerVelocity(struct Player* player)
     DrawText(accelerationText, 10, 30, 20, WHITE);
 }
 
+void drawPlayerPosition(struct Player* player)
+{
+    char positionText[50];
+    snprintf(positionText, sizeof(positionText), "Position: x=%.2f y=%.2f", player->position.x, player->position.y);
+
+    DrawText(positionText, 10, 10, 20, WHITE);
+}
+
+void drawLevel(Color tileColor)
+{
+
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLS; j++)
+        {
+            switch (testLevel[i][j])
+            {
+            case 1:
+                DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, tileColor);
+                break;
+            case 2://spike
+                DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, RED);
+                break;
+            case -2: //goal
+                DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, GREEN);
+                break;
+            case -1: //spawnpoint
+                DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, ORANGE);
+                break;
+            case 5:
+                DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, LIGHTGRAY);
+                break;
+            case 7:
+                //DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, DARKPURPLE);
+                DrawTexturePro(tileR,
+                    (Rectangle) {
+                    0, 0, tileR.width, tileR.height},  // Source (entire texture)
+                    (Rectangle) {
+                    i* gridSizeX, j* gridSizeY, gridSizeX, gridSizeY},  // Destination (fits grid)
+                    (Vector2) {
+                    0, 0}, 0.0f, WHITE);
+                break;
+            case 8:
+                //DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, DARKBLUE);
+                DrawTexturePro(tileL,
+                    (Rectangle) {
+                    0, 0, tileR.width, tileR.height},  // Source (entire texture)
+                    (Rectangle) {
+                    i* gridSizeX, j* gridSizeY, gridSizeX, gridSizeY},  // Destination (fits grid)
+                    (Vector2) {
+                    0, 0}, 0.0f, WHITE);
+                break;
+            default:
+                break;
+            }
+
+            if (testLevel[i][j] > 2 || testLevel[i][j] < -2)
+            {
+                //DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, GRAY);
+            }
+        }
+    }
+}
 
 void testGameplayScreenDraw()
 {
@@ -464,9 +561,9 @@ void testGameplayScreenDraw()
     Vector2 center = { worldWidth / 2, worldHeight / 2 };
 
     camera.target = center;
-    camera.offset = (Vector2){ screenWidth / 2.0f, screenHeight / 2.73f };
+    camera.offset = (Vector2){ screenWidth / 2.0f, screenHeight / 2.15f };
     camera.rotation = 0.0f;
-    camera.zoom = 0.83f;
+    camera.zoom = 0.9f; //0.8f
 
     BeginMode2D(camera);
 
@@ -508,14 +605,18 @@ void testGameplayScreenDraw()
        drawPlatform(&movingSpikesVertical[i], RED);
    }
 
+   for (int i = 0; i < gravInversorIndex; i++)
+   {
+       drawPlatform(&gravityInversors[i], GRAY);
+   }
+
    drawLevel(currentColor);
-   //DrawRectangle(checkArea.x, checkArea.y, checkArea.width, checkArea.height, checkAreaColor);
+   DrawRectangle(checkArea.x, checkArea.y, checkArea.width, checkArea.height, checkAreaColor);
    drawPlayer(&player);
 
-   //menu
-   DrawRectangle(0, 620, 192 * 4, 100, GRAY);
-
    drawPlayerVelocity(&player);
+
+  // drawPlayerPosition(&player);
 
    EndMode2D();
 }

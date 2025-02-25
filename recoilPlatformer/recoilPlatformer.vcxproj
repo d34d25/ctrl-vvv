@@ -131,12 +131,14 @@
     <ClCompile Include="platforms.c" />
     <ClCompile Include="player.c" />
     <ClCompile Include="testLevelScreen.c" />
+    <ClCompile Include="textures.c" />
     <ClCompile Include="titleScreen.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="platforms.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="testLevelScreen.h" />
+    <ClInclude Include="textures.h" />
     <ClInclude Include="titleScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

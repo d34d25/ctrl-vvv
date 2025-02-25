@@ -1,6 +1,8 @@
-#include "player.h"
+﻿#include "player.h"
 #include "platforms.h"
 #include <math.h>
+
+const int MAX_SPEED = 400;
 
 void initPlayer(struct Player* player, int width, int height, Vector2 pos, Vector2 vel)
 {
@@ -19,18 +21,44 @@ void drawPlayer(struct Player* player)
 	DrawRectangle(player->position.x, player->position.y, player->width, player->height, WHITE);
 }
 
+
 void updatePlayer(struct Player *player, float dt)
 {
-
+	
 	player->position.x += player->velocity.x * dt;
 	player->position.y += player->velocity.y * dt;
 
 	player->position.x += player->acceleration.x * dt;
 	player->position.y += player->acceleration.y * dt;
 
-	//printf("Player X: %.2f, Player Y: %.2f\n", player->position.x, player->position.y);
-
 }
+
+
+/*void updatePlayer(struct Player* player, float dt)
+{
+	// Calculate the combined velocity + acceleration vector
+	Vector2 totalVelocity = { player->velocity.x + player->acceleration.x,
+							 player->velocity.y + player->acceleration.y };
+
+	// Calculate the speed (magnitude of the combined vector)
+	float speed = sqrtf(totalVelocity.x * totalVelocity.x + totalVelocity.y * totalVelocity.y);
+
+	// If the speed exceeds the maximum allowed speed, normalize and scale the total velocity
+	if (speed > MAX_SPEED)
+	{
+		float scale = MAX_SPEED / speed;
+		totalVelocity.x *= scale;
+		totalVelocity.y *= scale;
+	}
+
+	// Update the player position using the scaled velocity
+	player->position.x += totalVelocity.x * dt;
+	player->position.y += totalVelocity.y * dt;
+
+	// Update the velocity based on the acceleration (after applying the speed cap)
+	player->velocity.x += player->acceleration.x * dt;
+	player->velocity.y += player->acceleration.y * dt;
+}*/
 
 //gravity
 void applyGravity(struct Player* player)
@@ -58,8 +86,7 @@ void applyGravity(struct Player* player)
 
 void move(struct Player* player)
 {
-	float force = 100.0f;
-	float moveSpeed = 2.5f * force; //3.0f
+	float moveSpeed = 200.0f;
 
 	if (IsKeyDown(KEY_LEFT))
 	{
@@ -126,23 +153,49 @@ bool checkVerticalCollisions(struct Player* player, Rectangle* obstacle, float d
 		player->position.y + player->velocity.y * dt < obstacle->y + obstacle->height);
 }
 
+bool checkCollisionsMovingSpikes(struct Player* player, struct Platform* p, float dt)
+{
+	Rectangle obstacle;
+
+	obstacle.x = p->position.x;
+	obstacle.y = p->position.y;
+
+	obstacle.width = p->width;
+	obstacle.height = p->height;
+
+	if (checkHorizontalCollisions(player, &obstacle, dt) || checkVerticalCollisions(player, &obstacle, dt))
+	{
+		return true;
+	}
+
+	return false;
+
+}
 
 void resolveCollisions(struct Player* player, Rectangle* obstacle, float dt)
 {
-	float offset = 0.5f;
+	float offsetX = 1.0f;
+	float offsetY = 1.0f;
 
 	if (checkHorizontalCollisions(player, obstacle, dt))
 	{
+		player->acceleration.x = 0.0f;
 		player->velocity.x = 0.0f;
 
 		//printf("colliding x \n");
+
+		if ((player->position.x + player->width * 1.5f < obstacle->x)|| (player->position.x > obstacle->x + obstacle->width * 1.5f))
+		{
+			player->acceleration.x = 0.0f;
+		}
+
 		if (player->position.x < obstacle->x) //moving rigth
 		{
-			player->position.x = obstacle->x - player->width - offset;
+			player->position.x = obstacle->x - player->width - offsetX;
 		}
 		else if (player->position.x > obstacle->x) //moving left
 		{
-			player->position.x = obstacle->x + obstacle->width + offset;
+			player->position.x = obstacle->x + obstacle->width + offsetX;
 		}
 
 	}
@@ -151,15 +204,18 @@ void resolveCollisions(struct Player* player, Rectangle* obstacle, float dt)
 	{
 		//printf("colliding y \n");
 		player->inAir = false;
-		player->velocity.y = 0.0f;
 
-		if (player->position.y < obstacle->y)  //moving down
+		player->acceleration.x = 0.0f;
+		player->acceleration.y = 0.0f;
+		player->velocity.y = 0.0f;
+		
+		if (player->position.y + player->height < obstacle->y)  //moving down
 		{
-			player->position.y = obstacle->y - player->height - offset;
+			player->position.y = obstacle->y - player->height - offsetY;
 		}
 		else if (player->position.y > obstacle->y + obstacle->height) //moving up
 		{
-			player->position.y = obstacle->y + obstacle->height + offset;
+			player->position.y = obstacle->y + obstacle->height + offsetY;
 		}
 
 	}
@@ -265,7 +321,26 @@ void resolveCollisionsPlatformsY(struct Player* player, struct Platform* p, floa
 
 }
 
-void checkCollisionsMovingSpikes(struct Player* player,struct Platform* p, float dt)
+void resolveCollisionsBounceY(struct Player* player, Rectangle* obstacle, float dt)
+{
+	
+	if (checkVerticalCollisions(player, obstacle, dt))
+	{
+
+		if (player->position.y < obstacle->y)  //moving down
+		{
+			player->gravityInversed = true;
+		}
+		else if (player->position.y > obstacle->y + obstacle->height) //moving up
+		{
+			player->gravityInversed = false;
+		}
+
+	}
+
+}
+
+void resolveCollisionsGravInversor(struct Player* player,struct Platform* p, float dt)
 {
 	Rectangle obstacle;
 
@@ -275,36 +350,157 @@ void checkCollisionsMovingSpikes(struct Player* player,struct Platform* p, float
 	obstacle.width = p->width;
 	obstacle.height = p->height;
 
-	if (checkHorizontalCollisions(player, &obstacle, dt) || checkVerticalCollisions(player, &obstacle, dt))
+	if (checkVerticalCollisions(player, &obstacle, dt))
 	{
-		return true;
+		player->velocity.y = 0.0f;
+		player->gravityInversed = !player->gravityInversed;
 	}
-
-	return false;
-
 }
 
-void resolveCollisionsMovingSpikesY(struct Player* player,struct Platform* p, float dt)
+void resolvePlayerOutOfBounds(struct Player* player, float worldWidth, float worldHeight, float gridX, float gridY)
 {
+	// Check left boundary Appear on the right
+	if (player->position.x + player->width <= 0)
+	{
+		player->position.x = worldWidth - gridX; // Align to the last grid column
+		player->position.y = roundf(player->position.y / gridY) * gridY; // Snap to grid
+	}
+	// Check right boundary  Appear on the left
+	else if (player->position.x >= worldWidth )
+	{
+		player->position.x = 0; // Start at the left edge
+		player->position.y = roundf(player->position.y / gridY) * gridY; // Snap to grid
+	}
+
+	// Check top boundary  Appear at the bottom
+	if (player->position.y + player->height <= 0)
+	{
+		player->position.y = worldHeight - gridY;
+	}
+	// Check bottom boundary  Appear at the top
+	else if (player->position.y >= worldHeight)
+	{
+		player->position.y = -player->height;
+	}
+}
+
+void resolveSpeedChangingTilesR(struct Player* player, Rectangle* obstacle, float dt)
+{
+	float offset = 0.5f;
+	float speed = 75.0f;
+
+	if (checkHorizontalCollisions(player, obstacle, dt))
+	{
+		player->velocity.x = 0.0f;
+		player->acceleration.x = 0.0f;
+
+		if (player->position.x < obstacle->x) //moving rigth
+		{
+			player->position.x = obstacle->x - player->width - offset;
+		}
+		else if (player->position.x > obstacle->x) //moving left
+		{
+			player->position.x = obstacle->x + obstacle->width + offset;
+		}
+
+	}
+
+	if (checkVerticalCollisions(player, obstacle, dt))
+	{
+
+		player->inAir = false;
+		player->velocity.y = 0.0f;
+		player->acceleration.x = speed;
+		
+
+		if (player->position.y < obstacle->y)  //moving down
+		{
+			player->position.y = obstacle->y - player->height - offset;
+		}
+		else if (player->position.y > obstacle->y + obstacle->height) //moving up
+		{
+			player->position.y = obstacle->y + obstacle->height + offset;
+		}
+
+	}
+	else if (player->velocity.y != 0)
+	{
+		player->inAir = true;
+	}
+}
+
+void resolveSpeedChangingTilesL(struct Player* player, Rectangle* obstacle, float dt)
+{
+	float offset = 0.5f;
+	float speed = -75.0f;
+
+
+	if (checkHorizontalCollisions(player, obstacle, dt))
+	{
+		player->velocity.x = 0.0f;
+		player->acceleration.x = 0.0f;
+
+		if (player->position.x < obstacle->x) //moving rigth
+		{
+			player->position.x = obstacle->x - player->width - offset;
+		}
+		else if (player->position.x > obstacle->x) //moving left
+		{
+			player->position.x = obstacle->x + obstacle->width + offset;
+		}
+
+	}
+
+	if (checkVerticalCollisions(player, obstacle, dt))
+	{
+		player->inAir = false;
+		player->velocity.y = 0.0f;
+		player->acceleration.y = 0.0f;
+		player->acceleration.x = speed;
+		
+
+
+		if (player->position.y < obstacle->y)  //moving down
+		{
+			player->position.y = obstacle->y - player->height - offset;
+		}
+		else if (player->position.y > obstacle->y + obstacle->height) //moving up
+		{
+			player->position.y = obstacle->y + obstacle->height + offset;
+		}
+
+	}
+	else if (player->velocity.y != 0)
+	{
+		player->inAir = true;
+	}
 }
 
 
+/*
+solid tiles Y
 
-
-/*if (checkHorizontalCollisions(player, &obstacle, dt))
+if (checkVerticalCollisions(player, obstacle, dt))
 	{
-		player->velocity.x = p->velocity.x;
+		//printf("colliding y \n");
+		player->inAir = false;
 
-		if (player->position.x < obstacle.x) //moving rigth
+		player->acceleration.y = 0.0f;
+		player->velocity.y = 0.0f;
+
+		if (player->position.y + player->height < obstacle->y)  //moving down
 		{
-			player->position.x = obstacle.x - player->width - offset;
+			player->position.y = obstacle->y - player->height - offsetY;
 		}
-		else if (player->position.x > obstacle.x)
+		else if (player->position.y > obstacle->y + obstacle->height) //moving up
 		{
-			player->position.x = obstacle.x + obstacle.width + offset;
+			player->position.y = obstacle->y + obstacle->height + offsetY;
 		}
+
 	}
-	else
+	else if (player->velocity.y != 0)
 	{
+		player->inAir = true;
+	}
 
-	}*/
+*/

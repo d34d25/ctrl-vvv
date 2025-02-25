@@ -77,3 +77,4 @@ void drawPlatform(struct Platform *p, Color c)
 {
     DrawRectangle(p->position.x, p->position.y, p->width, p->height, c);
 }
+
