@@ -40,7 +40,9 @@ char fileName[50];
 bool levelChangeTriggered;
 
 float gameplay_deltaTime;
+
 float gameplay_accumulatedTime;
+
 float gameplay_fixedDeltaTime;
 
 
@@ -259,12 +261,11 @@ void testGameplayScreenInit()
 
 void testGameplayScreenUpdate()
 {
-    gameplay_deltaTime = GetFrameTime();
-    gameplay_accumulatedTime += gameplay_deltaTime;
+    gameplay_accumulatedTime +=  GetFrameTime();
 
     while (gameplay_accumulatedTime >= gameplay_fixedDeltaTime)
     {
-
+        
         for (int i = 0; i < ROWS; i++)
         {
             for (int j = 0; j < COLS; j++)
@@ -300,9 +301,11 @@ void testGameplayScreenUpdate()
             }
         }
 
+       
         move(&player);
 
         applyGravity(&player);
+        
         
         // Dynamically adjust checkArea size based on grid size
         checkArea.width = gridSizeX * 8;  // Adjust checkArea to cover multiple grid cells

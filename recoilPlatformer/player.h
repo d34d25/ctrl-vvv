@@ -54,4 +54,5 @@ void resolvePlayerOutOfBounds(struct Player* player, float worldWidth, float wor
 void resolveSpeedChangingTilesR(struct Player* player, Rectangle* obstacle, float dt);
 void resolveSpeedChangingTilesL(struct Player* player, Rectangle* obstacle, float dt);
 
+
 #endif 

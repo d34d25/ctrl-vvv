@@ -3,6 +3,9 @@
 #include <math.h>
 
 const int MAX_SPEED = 400;
+const float GRAVITY = 400.0f;
+
+float gravMultiplier = 1.0f;
 
 void initPlayer(struct Player* player, int width, int height, Vector2 pos, Vector2 vel)
 {
@@ -63,12 +66,11 @@ void updatePlayer(struct Player *player, float dt)
 //gravity
 void applyGravity(struct Player* player)
 {
-	float graivityAcc = 350.0f;
-	const float GRAVITY = 400.0f;
+	float gravityAcc = 350.0f; //350
 
 	float gravityDirection = player->gravityInversed ? -1.0f : 1.0f;
 	
-	player->velocity.y += graivityAcc * gravityDirection;
+	player->velocity.y += (gravityAcc * gravMultiplier) * gravityDirection;
 
 	if (player->velocity.y >= GRAVITY)
 	{
@@ -174,7 +176,7 @@ bool checkCollisionsMovingSpikes(struct Player* player, struct Platform* p, floa
 
 void resolveCollisions(struct Player* player, Rectangle* obstacle, float dt)
 {
-	float offsetX = 1.0f;
+	float offsetX = 1.0f; //1.0f //0.0f makes the flickering to stop
 	float offsetY = 1.0f;
 
 	if (checkHorizontalCollisions(player, obstacle, dt))
@@ -475,6 +477,7 @@ void resolveSpeedChangingTilesL(struct Player* player, Rectangle* obstacle, floa
 		player->inAir = true;
 	}
 }
+
 
 
 /*

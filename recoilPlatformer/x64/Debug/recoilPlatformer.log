@@ -1,15 +1,15 @@
 ﻿  player.c
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(21,32): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(21,52): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(163,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(164,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(239,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(240,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(288,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(289,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(350,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(351,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(383,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(24,32): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(24,52): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(165,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(166,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(241,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(242,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(290,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(291,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(352,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(353,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(385,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   recoilPlatformer.vcxproj -> E:\Programming projects\C\recoilplatformer\x64\Debug\recoilPlatformer.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.
