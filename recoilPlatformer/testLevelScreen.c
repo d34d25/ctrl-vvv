@@ -6,9 +6,8 @@
 const int MAX_LEVELS = 4;
 
 Texture2D tileR;
-
 Texture2D tileL;
-
+Texture2D spike;
 
 struct Player player;
 Vector2 startPos;
@@ -32,11 +31,10 @@ int movingSpikesIndexHorizontal;
 struct Platform movingSpikesVertical[MAXPLATFORMS];
 int movingSpikesIndexVertical;
 
-struct Platform gravityInversors[MAXPLATFORMS];
-int gravInversorIndex;
-
 int level;
+
 char fileName[50];
+
 bool levelChangeTriggered;
 
 float gameplay_deltaTime;
@@ -66,7 +64,6 @@ void loadLevelData(const char* levelPath) //assets/level.png
 
     movingSpikesIndexHorizontal = 0;
     movingSpikesIndexVertical = 0;
-    gravInversorIndex = 0;
 
     for (int i = 0; i < ROWS; i++) 
     {
@@ -186,24 +183,6 @@ void loadLevelData(const char* levelPath) //assets/level.png
             {
                 testLevel[i][j] = 5; //bounce vertical
             }
-            else if (pixel.r == 100 && pixel.g == 100 && pixel.b == 255)
-            {
-                testLevel[i][j] = 6; // gravity inversor
-
-                gravityInversors[gravInversorIndex] = initPlatform( 
-                    gridSizeX,//only works when they're the size of only one tile
-                    gridSizeY,
-                    (Vector2) {
-                    i* gridSizeX, j* gridSizeY},
-                    (Vector2) {
-                    0.0f, 0.0f} 
-                );
-
-                if (gravInversorIndex < MAXPLATFORMS)
-                {
-                    gravInversorIndex++;
-                }
-            }
             else if (pixel.r == 255 && pixel.g == 100 && pixel.b == 0) //speed changing tile right orange
             {
                 testLevel[i][j] = 7;
@@ -223,7 +202,7 @@ void loadLevelData(const char* levelPath) //assets/level.png
 
 }
 
-void testGameplayScreenInit()
+void testGameplayScreenInit(int screenW, int screenH)
 {
     level = 0;
 
@@ -249,6 +228,7 @@ void testGameplayScreenInit()
 
     tileR = LoadTexture("assets/speedchangetileR.png");
     tileL = LoadTexture("assets/speedchangetileL.png");
+    spike = LoadTexture("assets/spike.png");
 
     snprintf(fileName, sizeof(fileName), "assets/level%d.png", level);
     loadLevelData(fileName);
@@ -429,11 +409,6 @@ void testGameplayScreenUpdate()
             resolveCollisionsPlatformsY(&player, &verticalPlatforms[i], gameplay_fixedDeltaTime);
         }
 
-        for (int i = 0; i < gravInversorIndex; i++)
-        {
-            resolveCollisionsGravInversor(&player, &gravityInversors[i], gameplay_fixedDeltaTime);
-        }
-
         resolvePlayerOutOfBounds(&player, gridSizeX * 70, gridSizeY * 70, gridSizeX, gridSizeY);
 
         updatePlayer(&player, gameplay_fixedDeltaTime);
@@ -459,11 +434,6 @@ void testGameplayScreenUpdate()
             updatePlatform(&movingSpikesVertical[i], gameplay_fixedDeltaTime);
         }
 
-        for (int i = 0; i < gravInversorIndex; i++)
-        {
-            updatePlatform(&gravityInversors[i], gameplay_fixedDeltaTime);
-        }
-       
         //printf("Platform index: %d\n", platformIndex);
 
 
@@ -506,7 +476,10 @@ void drawLevel(Color tileColor)
                 DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, tileColor);
                 break;
             case 2://spike
-                DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, RED);
+                DrawTexturePro(spike,
+                    (Rectangle) {0, 0, spike.width, spike.height},  // Source (entire texture)
+                    (Rectangle) {i* gridSizeX, j* gridSizeY, gridSizeX, gridSizeY},  // Destination (fits grid)
+                    (Vector2) {0, 0}, 0.0f, WHITE);
                 break;
             case -2: //goal
                 DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, GREEN);
@@ -520,22 +493,16 @@ void drawLevel(Color tileColor)
             case 7:
                 //DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, DARKPURPLE);
                 DrawTexturePro(tileR,
-                    (Rectangle) {
-                    0, 0, tileR.width, tileR.height},  // Source (entire texture)
-                    (Rectangle) {
-                    i* gridSizeX, j* gridSizeY, gridSizeX, gridSizeY},  // Destination (fits grid)
-                    (Vector2) {
-                    0, 0}, 0.0f, WHITE);
+                    (Rectangle) {0, 0, tileR.width, tileR.height},  // Source (entire texture)
+                    (Rectangle) {i* gridSizeX, j* gridSizeY, gridSizeX, gridSizeY},  // Destination (fits grid)
+                    (Vector2) {0, 0}, 0.0f, WHITE);
                 break;
             case 8:
                 //DrawRectangle(i * gridSizeX, j * gridSizeY, gridSizeX + 1, gridSizeY + 1, DARKBLUE);
                 DrawTexturePro(tileL,
-                    (Rectangle) {
-                    0, 0, tileR.width, tileR.height},  // Source (entire texture)
-                    (Rectangle) {
-                    i* gridSizeX, j* gridSizeY, gridSizeX, gridSizeY},  // Destination (fits grid)
-                    (Vector2) {
-                    0, 0}, 0.0f, WHITE);
+                    (Rectangle) {0, 0, tileR.width, tileR.height},  // Source (entire texture)
+                    (Rectangle) {i* gridSizeX, j* gridSizeY, gridSizeX, gridSizeY},  // Destination (fits grid)
+                    (Vector2) {0, 0}, 0.0f, WHITE);
                 break;
             default:
                 break;
@@ -600,21 +567,16 @@ void testGameplayScreenDraw()
 
    for (int i = 0; i < movingSpikesIndexHorizontal; i++)
    {
-       drawPlatform(&movingSpikesHorizontal[i], RED);
+       drawPlatformTexture(&movingSpikesHorizontal[i], spike);
    }
 
    for (int i = 0; i < movingSpikesIndexVertical; i++)
    {
-       drawPlatform(&movingSpikesVertical[i], RED);
-   }
-
-   for (int i = 0; i < gravInversorIndex; i++)
-   {
-       drawPlatform(&gravityInversors[i], GRAY);
+       drawPlatformTexture(&movingSpikesVertical[i], spike);
    }
 
    drawLevel(currentColor);
-   DrawRectangle(checkArea.x, checkArea.y, checkArea.width, checkArea.height, checkAreaColor);
+   //DrawRectangle(checkArea.x, checkArea.y, checkArea.width, checkArea.height, checkAreaColor);
    drawPlayer(&player);
 
    drawPlayerVelocity(&player);

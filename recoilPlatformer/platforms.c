@@ -78,3 +78,11 @@ void drawPlatform(struct Platform *p, Color c)
     DrawRectangle(p->position.x, p->position.y, p->width, p->height, c);
 }
 
+void drawPlatformTexture(struct Platform* p, Texture2D texture)
+{
+    DrawTexturePro(texture,
+        (Rectangle) {0, 0, texture.width, texture.height},
+        (Rectangle) {p->position.x, p->position.y, p->width, p->height},  
+        (Vector2) {0, 0}, 0.0f, WHITE);
+}
+

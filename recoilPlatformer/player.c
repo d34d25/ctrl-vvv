@@ -3,7 +3,7 @@
 #include <math.h>
 
 const int MAX_SPEED = 400;
-const float GRAVITY = 400.0f;
+const float GRAVITY = 600.0f; //400.0f;
 
 float gravMultiplier = 1.0f;
 
@@ -88,7 +88,7 @@ void applyGravity(struct Player* player)
 
 void move(struct Player* player)
 {
-	float moveSpeed = 200.0f;
+	float moveSpeed = 375.0f; //200.0f;
 
 	if (IsKeyDown(KEY_LEFT))
 	{
@@ -480,30 +480,3 @@ void resolveSpeedChangingTilesL(struct Player* player, Rectangle* obstacle, floa
 
 
 
-/*
-solid tiles Y
-
-if (checkVerticalCollisions(player, obstacle, dt))
-	{
-		//printf("colliding y \n");
-		player->inAir = false;
-
-		player->acceleration.y = 0.0f;
-		player->velocity.y = 0.0f;
-
-		if (player->position.y + player->height < obstacle->y)  //moving down
-		{
-			player->position.y = obstacle->y - player->height - offsetY;
-		}
-		else if (player->position.y > obstacle->y + obstacle->height) //moving up
-		{
-			player->position.y = obstacle->y + obstacle->height + offsetY;
-		}
-
-	}
-	else if (player->velocity.y != 0)
-	{
-		player->inAir = true;
-	}
-
-*/

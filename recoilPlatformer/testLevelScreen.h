@@ -8,7 +8,7 @@ int COLS;
 int testLevel[70][70];
 
 
-void testGameplayScreenInit();
+void testGameplayScreenInit(int screenW, int screenH);
 
 void testGameplayScreenUpdate();
 

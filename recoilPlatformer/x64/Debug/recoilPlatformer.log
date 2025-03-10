@@ -1,15 +1,44 @@
-﻿  player.c
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(24,32): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(24,52): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(165,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(166,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(241,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(242,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(290,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(291,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(352,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(353,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Programming projects\C\recoilplatformer\recoilPlatformer\player.c(385,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  testLevelScreen.c
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(94,47): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(94,64): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(107,31): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(108,21): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(126,35): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(129,31): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(130,21): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(150,21): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(151,21): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(166,35): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(169,21): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(170,21): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(215,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(216,26): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(298,22): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(299,22): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(300,20): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(301,20): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(476,33): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(476,48): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(476,71): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(476,86): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(480,45): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(480,58): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(485,33): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(485,48): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(485,71): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(485,86): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(488,33): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(488,48): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(488,71): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(488,86): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(491,33): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(491,48): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(491,71): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(491,86): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(496,45): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(496,58): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(503,45): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+E:\Programming projects\C\recoilplatformer\recoilPlatformer\testLevelScreen.c(503,58): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   recoilPlatformer.vcxproj -> E:\Programming projects\C\recoilplatformer\x64\Debug\recoilPlatformer.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

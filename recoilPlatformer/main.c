@@ -8,10 +8,10 @@ int main()
 {
     //SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 
-    int screenWidth = 192 * 4;
-    int screenHeight = 160 * 4; //160 * 4; 
+    int screenWidth = GetScreenWidth();//192 * 4;
+    int screenHeight = GetScreenHeight();//160 * 4; //160 * 4; 
 
-    InitWindow(screenWidth, screenHeight, ""); // 192 * 4, 160 * 4.5f   
+    InitWindow(screenWidth, screenHeight, "");
 
     ToggleFullscreen();
     //initialize here
@@ -23,7 +23,7 @@ int main()
     switch (currentScreen)
     {
     case GAMEPLAY:
-        testGameplayScreenInit();
+        testGameplayScreenInit(screenWidth,screenHeight);
     default:
         break;
     }

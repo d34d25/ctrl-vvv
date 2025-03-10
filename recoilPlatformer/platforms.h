@@ -18,6 +18,7 @@ struct Platform initPlatform(int width, int height, Vector2 pos, Vector2 vel);
 void updatePlatform(struct Platform* p, float dt);
 
 void drawPlatform(struct Platform* p, Color c);
+void drawPlatformTexture(struct Platform* p, Texture2D texture);
 
 bool checkHorizontalCollisionsPlatform(struct Platform* platform, Rectangle* obstacle, float dt);
 bool checkVerticalCollisionsPlatform(struct Platform* platform, Rectangle* obstacle, float dt);
